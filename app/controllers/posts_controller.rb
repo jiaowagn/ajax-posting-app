@@ -8,7 +8,6 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     @post.save
-    redirect_to posts_path
   end
 
   def destroy
