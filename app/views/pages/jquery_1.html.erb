@@ -1,0 +1,19 @@
+<p>
+  <a id="my-click">Click Me</a>
+</p>
+
+<div id="foo" style="border: 1px solid red">
+  <p>bar</p>
+</div>
+
+<script>
+  $("#my-click").click(function(){
+    // html 元素的内容置换成 <h1>zoo</h1>
+    // text 文字替换
+    // prepend 把内容插在指定元素里面的最前面
+    // append 把内容插在指定元素里面的最后面
+    // before 把内容插在指定元素的前面
+    // after 把内容插在指定元素的后面
+    $("#foo").text("zoo");
+  })
+</script>
