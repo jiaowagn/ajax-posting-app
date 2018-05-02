@@ -1,0 +1,19 @@
+<p>
+  <a id="my-open-click">Open Me</a>
+</p>
+
+<div id="foo" style="border: 1px solid red">
+  <a id="my-hide-click">Close</a>
+  <p>bar</p>
+</div>
+
+<script>
+  // you can also try fadeOut/fadeIn, slideOut/slideIn
+  $("#foo").hide();
+  $("#my-open-click").click(function(){
+    $("#foo").show();
+  })
+  $("#my-hide-click").click(function(){
+    $("#foo").hide();
+  })
+</script>
