@@ -1,3 +1,8 @@
-str = "<%=j render :partial => "post", :locals => {:post => @post} %>";
-$("#post-list").prepend(str);
-//其中 j 等同于 escape_javascript，这会做逸出好让 partial 字串可以变成合法的 JavaScript 字串：
+<% if @post.valid? %>
+  str = "<%=j render :partial => "post", :locals => {:post => @post} %>";
+  $("#post-list").prepend(str);
+  $("#post_content").val("");
+  //其中 j 等同于 escape_javascript，这会做逸出好让 partial 字串可以变成合法的 JavaScript 字串
+<% else %>
+  alert("贴文失败");
+<% end %>
