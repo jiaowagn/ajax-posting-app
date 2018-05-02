@@ -1,0 +1,3 @@
+$("#post-<%= @post.id %>").remove();
+// 一个 action 如果没有写明 redirect 或 render 的话，就会默认去找 action 名称的样板。于是这里就会去找 destroy.js.erb
+// destroy.js.erb 里面要写回传的 JavaScript 代码，这个档案也是 erb 样板，所以可以用内嵌 Ruby 语法
