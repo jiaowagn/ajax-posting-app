@@ -13,6 +13,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    render :json => {:id => @post.id}
   end
 
   def like

@@ -23,7 +23,10 @@
     $.ajax({
       url: url,
       method: "DELETE",
-      dataType: 'script'
+      dataType: 'json',
+      success: function(data){ //data就是服务器回传的 JSON 资料
+        $("#post-" + data["id"]).remove();
+      }
     })
   })
 </script>
