@@ -13,6 +13,27 @@
 </div>
 
 <script>
+  // 记下目前画面最小的贴文 ID
+  var current_post_id = <%= @posts.last.id %>;
+  // 当卷轴动的时候，会触发这个事件
+  $(window).scroll(function(){
+    // 当卷到最下面的时候
+    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+      var url = "/posts?max_id=" + current_post_id;
+      if(url){
+        $.ajax({
+          method: "GET",
+          url: url,
+          dataType: "script"
+        })
+      } else {
+        console.log("data ended")
+      }
+    }
+  })
+</script>
+
+<script>
   // 这会绑 click 事件到所有有.delete-postclass 的元素上，也就是所有的删除按钮
   $(".delete-post").click(function(evt){
     // evt是浏览器的事件物件，evt.preventDefault(); 会终止这个元素的默认行为：
