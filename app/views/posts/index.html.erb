@@ -15,6 +15,7 @@
 <script>
   $("#post-list").on('change', ".select_category", function(){
     var url = $(this).data("url");
+    var that = this;
     $.ajax({
       url: url,
       method: "PATCH",
@@ -23,6 +24,14 @@
         post: {
           category_id: $(this).val()
         }
+      },
+      // 其中 `beforeSend` 会在 Ajax 送出前触发，而`complete` 会在完成后触发。
+      // 分别是插入这张动画 gif 图片，以及在 Ajax 完成后移除图片。
+      beforeSend: function(){
+        $(that).after($('<img src="/images/ajax-loader.gif" id="ajax-loading" >'));
+      },
+      complete: function(){
+        $("#ajax-loading").remove();
       }
     });
   });
