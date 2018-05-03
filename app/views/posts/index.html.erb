@@ -11,3 +11,19 @@
 <div id="post-list">
   <%= render @posts %>
 </div>
+
+<script>
+  // 这会绑 click 事件到所有有.delete-postclass 的元素上，也就是所有的删除按钮
+  $(".delete-post").click(function(evt){
+    // evt是浏览器的事件物件，evt.preventDefault(); 会终止这个元素的默认行为：
+    // 超连结 a 的默认行为是跳到下一页，如果没有这行的话，送出 ajax 后会跳去 show page
+    evt.preventDefault();
+    // this 是个特别的变量，代表触发事件的元素。使用 attr 可以读取元素的属性，这里要拿到超连结的网址
+    var url = $(this).attr("href");
+    $.ajax({
+      url: url,
+      method: "DELETE",
+      dataType: 'script'
+    })
+  })
+</script>

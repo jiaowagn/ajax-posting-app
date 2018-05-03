@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <span id="post-thumbsup-<%= post.id %>" class="label label-success">
-      <%= post.likes.count %> 👍 
+      <%= post.likes.count %> 👍
     </span>
     <%= post.content %>
     <div class="pull-right">
@@ -13,7 +13,7 @@
       </span>
 
       <% if current_user && post.user == current_user %>
-        <%= link_to "Delete", post_path(post), method: :delete, :remote => true, :class => "btn btn-danger" %>
+        <%= link_to "Delete", post_path(post), :class => "delete-post btn btn-danger" %>
       <% end %>
     </div>
   </div>
