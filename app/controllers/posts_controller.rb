@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, :only => [:create, :destroy, :like, :unlike]
-  before_action :find_post, :only => [:destroy, :like, :unlike]
+  before_action :authenticate_user!, :only => [:create, :destroy, :like, :unlike, :toggle_flag]
+  before_action :find_post, :only => [:destroy, :like, :unlike, :toggle_flag]
   def index
     @posts = Post.order("id DESC").limit(20)
     if params[:max_id]
@@ -34,6 +34,18 @@ class PostsController < ApplicationController
     like = @post.find_like(current_user)
     like.destroy
     render "like"
+  end
+
+  def toggle_flag
+    if current_user.is_admin?
+      if @post.flag_at
+        @post.flag_at = nil
+      else
+        @post.flag_at = Time.now
+      end
+      @post.save!
+      render :json => {:message => "ok" ,:id => @post.id, :flag_at => @post.flag_at}
+    end
   end
 
   protected

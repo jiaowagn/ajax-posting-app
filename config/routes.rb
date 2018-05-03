@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     member do
       post "like" => "posts#like"
       post "unlike" => "posts#unlike"
-    end    
+      post "toggle_flag" => "posts#toggle_flag"
+    end
   end
 
   root 'posts#index'

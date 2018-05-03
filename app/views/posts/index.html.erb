@@ -13,6 +13,24 @@
 </div>
 
 <script>
+  $(".toggle-flag").on('change', function(){
+    var url = $(this).data("url");
+    $.ajax({
+      url: url,
+      method: "POST",
+      dataType: "json",
+      success: function(data){
+        if (data["flag_at"]){
+          $("#post-flag-" + data["id"]).html(data["flag_at"]);
+        } else {
+          $("#post-flag-" + data["id"]).html("");
+        }
+      }
+    });
+  });
+</script>
+
+<script>
   // 记下目前画面最小的贴文 ID
   var current_post_id = <%= @posts.last.id %>;
   // 当卷轴动的时候，会触发这个事件
