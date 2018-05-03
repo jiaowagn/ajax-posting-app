@@ -2,6 +2,26 @@
   str = "<%=j render :partial => "post", :locals => {:post => @post} %>";
   $("#post-list").prepend(str);
   $("#post_content").val("");
+  $(".raty").raty({
+    path: '/images/',
+    score: function(){
+      // score 是初始函式，我們已經用 data-score 属性将用户之前的评分放上去，這裡再用 $(this).data('score'); 抓到值
+      return $(this).data('score');
+    },
+    // click 是当用户点击星星时，会触发的函式。这里就是会送出 Ajax 请求
+    click: function(score){
+      var that = this;
+      $.ajax({
+        url: $(this).data("score-url"),
+        method: "POST",
+        data: { score: score },
+        dataType: "json",
+        success: function(data){
+          $(that).closest(".panel-body").find(".average-score").html(data["average_score"]);
+        }
+      })
+    }
+  });
   //其中 j 等同于 escape_javascript，这会做逸出好让 partial 字串可以变成合法的 JavaScript 字串
 <% else %>
   alert("贴文失败");
