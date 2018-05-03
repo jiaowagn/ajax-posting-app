@@ -13,6 +13,12 @@
 </div>
 
 <script>
+  $(".raty").raty({
+    path: '/images/'
+  });
+</script>
+
+<script>
   $("#post-list").on('change', ".select_category", function(){
     var url = $(this).data("url");
     var that = this;

@@ -21,7 +21,7 @@ class PostsController < ApplicationController
 
   def update
     # 是本地开发，感觉可能会一闪而过，我们可以暂时故意地在 action 做延迟,但这只是看看效果，试完请移除掉。
-    sleep(1)
+    # sleep(1)
     @post.update!(post_params)
     render :json => {:id => @post.id, :message => "ok"}
   end
