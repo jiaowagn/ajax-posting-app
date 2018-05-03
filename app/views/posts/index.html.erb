@@ -13,6 +13,22 @@
 </div>
 
 <script>
+  $("#post-list").on('change', ".select_category", function(){
+    var url = $(this).data("url");
+    $.ajax({
+      url: url,
+      method: "PATCH",
+      dataType: "json",
+      data: {
+        post: {
+          category_id: $(this).val()
+        }
+      }
+    });
+  });
+</script>
+
+<script>
   $("#post-list").on('change', ".toggle-flag", function(){
     var url = $(this).data("url");
     var that = this;

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, :only => [:create, :destroy, :like, :unlike, :toggle_flag]
-  before_action :find_post, :only => [:destroy, :like, :unlike, :toggle_flag]
+  before_action :find_post, :only => [:destroy, :like, :unlike, :toggle_flag, :update]
   def index
     @posts = Post.order("id DESC").limit(20)
     if params[:max_id]
@@ -17,6 +17,11 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     @post.save
+  end
+
+  def update
+    @post.update!(post_params)
+    render :json => {:id => @post.id, :message => "ok"}
   end
 
   def destroy
@@ -54,6 +59,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :category_id)
     end
 end
