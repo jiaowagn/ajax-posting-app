@@ -6,7 +6,9 @@
     <span id="post-thumbsup-<%= post.id %>" class="label label-success">
       <%= post.likes.count %> 👍
     </span>
-    <div class="raty">
+    <span class="average-score"><%= post.average_score %></span>
+    <div class="raty" data-score="<%= post.find_score(current_user).try(:score) || 0 %>"
+         data-score-url="<%= rate_post_path(post) %>">
     </div>
     <%= post.content %>
     <div class="pull-right">

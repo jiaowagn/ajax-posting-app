@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, :only => [:create, :destroy, :like, :unlike, :toggle_flag]
-  before_action :find_post, :only => [:destroy, :like, :unlike, :toggle_flag, :update]
+  before_action :authenticate_user!, :only => [:create, :destroy, :like, :unlike, :toggle_flag, :rate]
+  before_action :find_post, :only => [:destroy, :like, :unlike, :toggle_flag, :update, :rate]
   def index
     @posts = Post.order("id DESC").limit(20)
     if params[:max_id]
@@ -53,6 +53,16 @@ class PostsController < ApplicationController
       @post.save!
       render :json => {:message => "ok" ,:id => @post.id, :flag_at => @post.flag_at}
     end
+  end
+
+  def rate
+    existing_score = @post.find_score(current_user)
+    if existing_score
+      existing_score.update(:score => params[:score])
+    else
+      @post.scores.create(:score => params[:score], :user => current_user)
+    end
+    render :json => { :average_score => @post.average_score }
   end
 
   protected
